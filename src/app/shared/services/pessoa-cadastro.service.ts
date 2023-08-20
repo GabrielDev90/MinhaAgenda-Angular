@@ -20,7 +20,6 @@ export class PessoaCadastroService {
   }
 
   public AtualizarPessoa(nomeContato: string, pessoa: any): Observable<any> {
-    console.log(this.url + PessoaServiceEnum.AtualizarPessoa + "/" + nomeContato, pessoa);
     return this.httpClient.put(this.url + PessoaServiceEnum.AtualizarPessoa + "/" + nomeContato, pessoa);
   }
 
@@ -29,12 +28,10 @@ export class PessoaCadastroService {
   }
 
   public RetornaPessoaPorNome(nomeContato: string): Observable<any> {
-    console.log(this.url + PessoaServiceEnum.RetornaPessoaPorNome + "/" + nomeContato);
     return this.httpClient.get(this.url + PessoaServiceEnum.RetornaPessoaPorNome + "/" + nomeContato);
   }
 
   public DeletarPessoa(Id: number): Observable<any> {
-    console.log(this.url + PessoaServiceEnum.DeletarPessoa + "/" + Id);
     return this.httpClient.delete(this.url + PessoaServiceEnum.DeletarPessoa + "/" + Id);
   }
 }

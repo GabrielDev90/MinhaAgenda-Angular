@@ -25,7 +25,6 @@ export class CadastroDialogComponent implements OnInit {
   ngOnInit(): void {
     this.criaAgendaForm();
     if (this.data.pessoa !== undefined) {
-      debugger;
       console.log(this.data.pessoa);
       this.nomeContato = this.data.pessoa.nome;
       this.id = this.data.pessoa.id;
@@ -77,7 +76,6 @@ export class CadastroDialogComponent implements OnInit {
           this.dialogRef.close();
         });
       } else {
-        debugger;
         if (this.nomeContato != formData.nome) {
           alert("Já existe um contato com nome informado!");
         }

@@ -56,7 +56,6 @@ export class ListaContatosComponent implements OnInit {
   }
 
   openModal(pessoa?: IPessoa): MatDialogRef<CadastroDialogComponent, any> {
-    console.log(pessoa);
     return this.dialog.open(CadastroDialogComponent, {
       height: this.dialogTeight,
       width: this.dialogWidth,
