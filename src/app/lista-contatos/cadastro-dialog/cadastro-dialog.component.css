@@ -1,0 +1,11 @@
+button {
+    margin-right: 8px;
+}
+
+mat-form-field {
+    margin-right: 8px;
+}
+
+.nome-width {
+    width: 80%;
+}

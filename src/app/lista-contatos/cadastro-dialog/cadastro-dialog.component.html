@@ -1,0 +1,32 @@
+<form class="example-form" [formGroup]="formGroup">
+    <div class="container-center">
+        <mat-form-field class="nome-width">
+            <mat-label>Nome</mat-label>
+            <input type="Nome" matInput formControlName="nome" placeholder="Nome">
+        </mat-form-field>
+        <div formArrayName="contatos">
+            <div *ngFor="let child of formGroup.get('contatos')['controls']; let i = index" formGroupName="{{i}}">
+                <mat-form-field class="tipo-width">
+                    <mat-label>Tipo Contato</mat-label>
+                    <mat-select formControlName="tipoContato">
+                        <mat-option *ngFor="let tipo of tipoContato;let i = index" [value]="i + 1"
+                            id="drop_">{{tipo}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="contato-width">
+                    <mat-label>Contato</mat-label>
+                    <input type="Contato" matInput formControlName="numero" placeholder="Contato">
+                </mat-form-field>
+                <button mat-stroked-button style="margin-bottom: 20px; height: 56px;"
+                    (click)="RemoveContatoCampo(i)">Remover</button>
+            </div>
+            <mat-error style="color:red;" *ngIf="totalCamposContato == 1">
+                <h3>É preciso
+                    ter no minimo um
+                    contato por pessoa</h3>
+            </mat-error>
+        </div>
+        <button mat-stroked-button (click)="onSubmit(formGroup.value)" [disabled]="!formGroup.valid">Salvar</button>
+        <button mat-stroked-button (click)="AdicionaContatoCampo()">Adicionar contato</button>
+    </div>
+</form>
