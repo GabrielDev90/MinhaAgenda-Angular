@@ -9,8 +9,7 @@
                 <mat-form-field class="tipo-width">
                     <mat-label>Tipo Contato</mat-label>
                     <mat-select formControlName="tipoContato">
-                        <mat-option *ngFor="let tipo of tipoContato;let i = index" [value]="i + 1"
-                            id="drop_">{{tipo}}</mat-option>
+                        <mat-option *ngFor="let tipo of tipoContato;let i = index" [value]="i + 1">{{tipo}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="contato-width">

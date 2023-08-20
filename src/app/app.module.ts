@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CadastroDialogComponent } from './lista-contatos/cadastro-dialog/cadastro-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
-import { PessoaServiceService } from './shared/services/pessoa-service.service';
+import { PessoaCadastroService } from './shared/services/pessoa-cadastro.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -39,8 +39,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MatIconModule
   ],
   providers: [
-    PessoaServiceService//,
-    // HttpClient
+    PessoaCadastroService
   ],
   bootstrap: [AppComponent]
 })

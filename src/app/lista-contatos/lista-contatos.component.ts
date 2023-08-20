@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CadastroDialogComponent } from './cadastro-dialog/cadastro-dialog.component';
-import { PessoaServiceService } from '../shared/services/pessoa-service.service';
+import { PessoaCadastroService } from '../shared/services/pessoa-cadastro.service';
 import { IPessoa } from '../shared/Interface/IPessoa';
 
 @Component({
@@ -18,7 +18,7 @@ export class ListaContatosComponent implements OnInit {
   dialogTeight = "600px";
   dialogWidth = "700px";
 
-  constructor(private pessoaServiceService: PessoaServiceService,
+  constructor(private pessoaCadastroService: PessoaCadastroService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class ListaContatosComponent implements OnInit {
   }
 
   public retornaPessoas() {
-    this.pessoaServiceService
+    this.pessoaCadastroService
       .RetornaPessoas()
       .subscribe((response: IPessoa) => {
         this.dataSource = response;
@@ -44,7 +44,7 @@ export class ListaContatosComponent implements OnInit {
   }
 
   public DeletarContato(pessoa: IPessoa) {
-    this.pessoaServiceService.DeletarPessoa(pessoa.id).subscribe((x) => {
+    this.pessoaCadastroService.DeletarPessoa(pessoa.id).subscribe((x) => {
       this.retornaPessoas();
     });
   }

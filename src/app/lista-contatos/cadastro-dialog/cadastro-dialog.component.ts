@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, RequiredValidator, Validators } from
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
 import { IPessoa } from 'src/app/shared/Interface/IPessoa';
-import { PessoaServiceService } from 'src/app/shared/services/pessoa-service.service';
+import { PessoaCadastroService } from 'src/app/shared/services/pessoa-cadastro.service';
 
 @Component({
   selector: 'app-cadastro-dialog',
@@ -17,14 +17,18 @@ export class CadastroDialogComponent implements OnInit {
   nomeContato: string;
   totalCamposContato: number
 
-  constructor(private pessoaServiceService: PessoaServiceService,
+
+  constructor(private pessoaCadastroService: PessoaCadastroService,
     private dialogRef: MatDialogRef<CadastroDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.criaAgendaForm();
     if (this.data.pessoa !== undefined) {
+      debugger;
+      console.log(this.data.pessoa);
       this.nomeContato = this.data.pessoa.nome;
+      this.id = this.data.pessoa.id;
 
       var total = this.data.pessoa.totalContatos - 1;
 
@@ -57,22 +61,31 @@ export class CadastroDialogComponent implements OnInit {
   }
 
   async onSubmit(formData: IPessoa) {
-    var $retornaPessoa = this.pessoaServiceService.RetornaPessoaPorNome(formData.nome);
+    var $retornaPessoaPorNome = this.pessoaCadastroService.RetornaPessoaPorNome(formData.nome);
 
-    var existePessoa = await firstValueFrom($retornaPessoa).catch(error => {
+    var existePessoa = await firstValueFrom($retornaPessoaPorNome).catch(error => {
       console.log("Contato não foi encontrado");
     });
 
     if (!this.nomeContato && !existePessoa) {
-      this.pessoaServiceService.InserirPessoa(formData).subscribe((pessoa: IPessoa) => {
+      this.pessoaCadastroService.InserirPessoa(formData).subscribe(() => {
         this.dialogRef.close();
       });
     } else {
-      if (confirm("Contato " + existePessoa.nome + " já existe na agenda, deseja sobrescrever todas as informações do contato?")) {
-        this.nomeContato = existePessoa.nome;
-        this.pessoaServiceService.AtualizarPessoa(this.nomeContato, formData).subscribe((pessoa: IPessoa) => {
+      if (this.nomeContato && !existePessoa) {
+        this.pessoaCadastroService.AtualizarPessoa(this.nomeContato, formData).subscribe((pessoa: IPessoa) => {
           this.dialogRef.close();
         });
+      } else {
+        debugger;
+        if (this.nomeContato != formData.nome) {
+          alert("Já existe um contato com nome informado!");
+        }
+        else {
+          this.pessoaCadastroService.AtualizarPessoa(this.nomeContato, formData).subscribe((pessoa: IPessoa) => {
+            this.dialogRef.close();
+          });
+        }
       }
     }
   }
